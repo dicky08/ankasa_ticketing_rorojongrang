@@ -8,5 +8,8 @@ module.exports = {
   DATABASE: process.env.DATABASE,
   DATE: process.env.DATE,
   JWT_PRIVATE: process.env.JWT_PRIVATE,
-  JWT_REFRESH: process.env.JWT_REFRESH
+  JWT_REFRESH: process.env.JWT_REFRESH,
+  JWT_REGIS: process.env.JWT_REGIS,
+  EMAIL: process.env.EMAIL,
+  PASSWORD: process.env.PASSWORD,
 }
