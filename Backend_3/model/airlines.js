@@ -1,9 +1,9 @@
 const db = require('.././config/database')
 
 const airlines = {
-    dataAll: () => {
+    dataAll: (sortby,type) => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT * from airlines`,(err,result)=>{
+            db.query(`SELECT * from airlines order by  ${sortby} ${type} `,(err,result)=>{
                 if(err){
                     reject(new Error(err))
                 }else{
