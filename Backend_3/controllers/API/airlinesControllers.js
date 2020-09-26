@@ -1,5 +1,6 @@
 const airlinesModel = require('../../model/airlines')
 const response = require('../../helper/response')
+const upload = require('../../helper/upload')
 
 const airlines = {
     dataAll: (req,res) => {
@@ -19,14 +20,36 @@ const airlines = {
             response.failed(res,[],'Internal server error')
         }
     },
+    getDetail: (req,res) => {
+        try { 
+            const id = req.params.id_airlines
+            airlinesModel.getDetail(id).then((result)=>{
+                response.success(res,result,'Get detail Airlines success')
+            })
+        } catch {
+            response.failed(res,[],'Internal server error')
+        }
+    },
     addData: (req,res) => {
         try {
-            const data = req.body
-            airlinesModel.addData(data)
-            .then((result)=>{
-                response.success(res,result,"Add data airlines Success")
-            })
-        } catch (err){
+            // multer
+            // upload.single('image')(req,res,(err)=>{
+            //     if(err){
+            //         if(err.code === 'LIMIT_FILE_SIZE'){
+            //             response.failed(res,[],'image too large')
+            //         }else{
+            //             response.failed(res,[],err)
+            //         }
+            //     } else {
+                    const body = req.body
+                    // body.image = !req.file?req.file:req.file.filename
+                    airlinesModel.addData(body)
+                    .then((result)=>{
+                        response.success(res,result,"Add data airlines Success")
+                    })
+                // }
+                // })
+            } catch (err){
             response.failed(res,[],err.message)
         }
     },
