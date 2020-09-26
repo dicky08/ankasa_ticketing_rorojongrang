@@ -14,6 +14,8 @@ const destinationCity = require('./routes/destination_city')
 const facilities = require('./routes/facilities')
 const transit = require('./routes/transit')
 const airlinesRouter = require('./routes/airlines')
+const airlinesClass = require('./routes/airlines_class');
+
 
 
 var app = express();
@@ -39,7 +41,7 @@ app.use('/api/destination_city', destinationCity)
 app.use('/api/facilities', facilities)
 app.use('/api/transit', transit)
 app.use('/api/airlines',airlinesRouter)
-
+app.use('/api/airlines_class',airlinesClass)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

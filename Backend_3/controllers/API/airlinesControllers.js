@@ -32,6 +32,7 @@ const airlines = {
     },
     addData: (req,res) => {
         try {
+            // multer
             // upload.single('image')(req,res,(err)=>{
             //     if(err){
             //         if(err.code === 'LIMIT_FILE_SIZE'){
