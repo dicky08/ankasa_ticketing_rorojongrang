@@ -8,8 +8,13 @@ var logger = require('morgan');
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin')
+<<<<<<< HEAD
 const departureCity = require('./routes/departure_city')
 const destinationCity = require('./routes/destination_city')
+=======
+const airlinesRouter = require('./routes/airlines')
+// const departureCity = require('./routes/departure_city')
+>>>>>>> 42bbb221c5a9f8ddaf3e9af1ef3645338a17cac8
 
 
 var app = express();
@@ -29,8 +34,13 @@ app.use('/sb-admin-2', express.static(path.join(__dirname, 'node_modules/startbo
 app.use('/', indexRouter);
 app.use('/users', usersRouter);
 app.use('/admin', adminRouter)
+<<<<<<< HEAD
 app.use('/api/departure_city', departureCity)
 app.use('/api/destination_city', destinationCity)
+=======
+app.use('/api/airlines',airlinesRouter)
+// app.use('/API/departure_city', departureCity)
+>>>>>>> 42bbb221c5a9f8ddaf3e9af1ef3645338a17cac8
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

@@ -1,7 +1,7 @@
 // Call Model
 const {getAllModel,InsertModel,getDetailModel,updateModel,deleteModel} = require('../../model/departure_cityModel')
 // Call Helper
-const {success,Error} = require('../../helper/response')
+const {success,failed} = require('../../helper/response')
 // Definisikan Endpoint
 const departureController = {
   getAll: (req,res) => {
@@ -9,7 +9,7 @@ const departureController = {
     .then((result) => {
      success(res, result, 'Success get all data Departure City')
     }).catch((err) => {
-      Error(res, [], err.message)
+      failed(res, [], err.message)
     });
   },
   getDetail: (req,res) => {
@@ -18,7 +18,7 @@ const departureController = {
     .then((result) => {
       success(res, result, 'Success get detail Departure City')
     }).catch((err) => {
-      Error(res, [], err.message)
+      failed(res, [], err.message)
     });
   },
   insertController:(req,res) => {
@@ -33,7 +33,7 @@ const departureController = {
     .then((result) => {
       success(res, result, 'Success get Insert data Departure City')
     }).catch((err) => {
-      Error(res, [], err.message)
+      failed(res, [], err.message)
     });
   },
   updateController:(req,res) => {
@@ -49,7 +49,7 @@ const departureController = {
     .then((result) => {
       success(res, result, 'Success update data Departure City')
     }).catch((err) => {
-      Error(res, [], err.message)
+      failed(res, [], err.message)
     });
   },
   deleteController:(req,res) => {
@@ -58,7 +58,7 @@ const departureController = {
     .then((result) => {
       success(res, result, 'Success update data Departure City')
     }).catch((err) => {
-      Error(res, [], err.message)
+      failed(res, [], err.message)
     });
   }
 }

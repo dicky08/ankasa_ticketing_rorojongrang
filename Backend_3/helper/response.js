@@ -9,15 +9,16 @@ const response = {
       }
       res.status(200).json(result)
   },
-  Error: (res, data, message) => {
-    const Error = {
+  failed: (res, data, message) => {
+    const failed = {
       success: false,
       code: 500,
       status: 'Error',
       message,
       data
     }
-    res.status(500).json(Error)
+    res.status(500).json(failed)
   }
 }
+
 module.exports = response

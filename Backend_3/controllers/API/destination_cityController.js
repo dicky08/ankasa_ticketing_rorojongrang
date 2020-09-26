@@ -1,7 +1,7 @@
 // Call Model
 const {getAllModel} = require('../../model/destination_cityModel')
 // Call Helper
-const {success,Error} = require('../../helper/response')
+const {success,failed} = require('../../helper/response')
 // Definisikan
 const destinationCity = {
   getAll: (req,res) => {
@@ -9,7 +9,7 @@ const destinationCity = {
     .then((result) => {
       console.log(result);
     }).catch((err) => {
-      Error(res,[], err.message)
+      failed(res,[], err.message)
     });
   }
 }
