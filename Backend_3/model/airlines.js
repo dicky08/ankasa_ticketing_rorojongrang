@@ -1,17 +1,17 @@
 const db = require('.././config/database')
 
-const airlines = {
-    dataAll: (sortby,type) => {
+const airlines = { 
+    dataAll: () => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT * from airlines order by  ${sortby} ${type} `,(err,result)=>{
+            db.query(`SELECT * from airlines `,(err,result)=>{
                 if(err){
                     reject(new Error(err))
                 }else{
                     resolve(result)
                 }
             })
-        })
-    },
+        })  
+},
     addData: (data) => {
         return new Promise((resolve,reject)=>{
             db.query(`INSERT into airlines SET ?`,data,(err,result)=>{
