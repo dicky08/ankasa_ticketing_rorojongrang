@@ -54,7 +54,7 @@ const departure_cityModel  = {
             }
           })
         })
-      } ,
+      },
       deleteModel: (id) => {
         return new Promise((resolve,reject) => {
           db.query(`DELETE FROM departure_city WHERE id_departure_city=${id}`,

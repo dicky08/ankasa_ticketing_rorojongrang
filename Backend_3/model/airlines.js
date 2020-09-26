@@ -1,9 +1,9 @@
 const db = require('.././config/database')
 
 const airlines = {
-    dataAll: () => {
+    dataAll: (sortby,type) => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT * from airlines`,(err,result)=>{
+            db.query(`SELECT * from airlines order by  ${sortby} ${type} `,(err,result)=>{
                 if(err){
                     reject(new Error(err))
                 }else{
@@ -16,6 +16,20 @@ const airlines = {
         return new Promise((resolve,reject)=>{
             db.query(`INSERT into airlines SET ?`,data,(err,result)=>{
                 err? reject(new Error(err)) :resolve(result)
+            })
+        })
+    },
+    updData: (data,id) => {
+        return new Promise((resolve,reject)=>{
+            db.query(`UPDATE airlines SET? WHERE id_airlines = ?`,[data,id],(err,result)=>{
+                err?reject(new Error(err)):resolve(result)
+            })
+        })
+    },
+    delete: (id) => {
+        return new Promise((resolve,reject)=> {
+            db.query(`DELETE from airlines WHERE id_airlines = ?`, id,(err,result)=> {
+                err?reject(new Error(err)):resolve(result)
             })
         })
     }
