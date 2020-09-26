@@ -1,9 +1,10 @@
 // Impor Database
 const db = require('../config/database')
-const destinations_city  = {
+// Defiisikan
+const departure_city  = {
       getAllModel: () => {
         return new Promise((resolve,reject) => {
-          db.query(`SELECT * FROM destinations_city`,
+          db.query(`SELECT * FROM departure_city`,
           (err,result) => {
             if (err) {
               reject(new Error(err))
@@ -15,4 +16,4 @@ const destinations_city  = {
       }
 }
 
-module.exports = destinations_city
+module.exports = destination_city
