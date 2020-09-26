@@ -10,6 +10,7 @@ var indexRouter = require('./routes/index');
 const adminRouter = require('./routes/admin')
 const usersRouter = require('./routes/users')
 const departureCity = require('./routes/departure_city')
+const depatureTime = require('./routes/departure_time')
 const destinationCity = require('./routes/destination_city')
 const facilities = require('./routes/facilities')
 const transit = require('./routes/transit')
@@ -35,6 +36,7 @@ app.use('/', indexRouter);
 app.use('/admin', adminRouter)
 app.use('/api/users', usersRouter);
 app.use('/api/departure_city', departureCity)
+app.use('/api/departure_time', depatureTime)
 app.use('/api/destination_city', destinationCity)
 app.use('/api/facilities', facilities)
 app.use('/api/transit', transit)
