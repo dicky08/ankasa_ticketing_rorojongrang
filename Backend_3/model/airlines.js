@@ -18,6 +18,20 @@ const airlines = {
                 err? reject(new Error(err)) :resolve(result)
             })
         })
+    },
+    updData: (data,id) => {
+        return new Promise((resolve,reject)=>{
+            db.query(`UPDATE airlines SET? WHERE id_airlines = ?`,[data,id],(err,result)=>{
+                err?reject(new Error(err)):resolve(result)
+            })
+        })
+    },
+    delete: (id) => {
+        return new Promise((resolve,reject)=> {
+            db.query(`DELETE from airlines WHERE id_airlines = ?`, id,(err,result)=> {
+                err?reject(new Error(err)):resolve(result)
+            })
+        })
     }
 }
 

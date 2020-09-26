@@ -25,6 +25,27 @@ const airlines = {
         } catch (err){
             response.failed(res,[],err.message)
         }
+    },
+    updData: (req,res) => {
+        try {
+            const data = req.body
+            const id = req.params.id_airlines
+            airlinesModel.updData(data,id).then((result)=>{
+                response.success(res,result,"Update Airlines success")
+            })
+        } catch (err) {
+            response.failed(res,[],err.message)
+        }
+    },
+    delete: (req,res) => {
+        try {
+            const id = req.params.id_airlines
+            airlinesModel.delete(id).then((result)=>{
+                response.success(res,result,"Delete airlines success")
+            })
+        } catch (err) {
+            response.failed(res,[],err.message)
+        }
     }
 }
 
