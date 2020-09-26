@@ -3,7 +3,7 @@ const db = require('../config/database')
 const destinationCity = {
   getAllModel: ()=> {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * FROM destination_city`, 
+      db.query(`SELECT destination_city.id,destination_city.code_arrived,destination_city.city_arrived,country.code_country,country.name_country FROM destination_city  JOIN country USING(id_country)`, 
       (err,result) => {
         if (err) {
           reject(new Error(err))

@@ -6,6 +6,7 @@
     "start": "nodemon ./bin/www"
   },
   "dependencies": {
+    "bcrypt": "^5.0.0",
     "cookie-parser": "~1.4.4",
     "debug": "~2.6.9",
     "dotenv": "^8.2.0",
@@ -14,7 +15,11 @@
     "fs": "0.0.1-security",
     "fs-extra": "^9.0.1",
     "http-errors": "~1.6.3",
+<<<<<<< HEAD
     "method-override": "^3.0.0",
+=======
+    "jsonwebtoken": "^8.5.1",
+>>>>>>> cc146cc7646ea4126bcbc8e5ed6f9f0197936122
     "morgan": "~1.9.1",
     "multer": "^1.4.2",
     "mysql2": "^2.2.5",
