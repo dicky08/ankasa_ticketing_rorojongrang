@@ -1,0 +1,30 @@
+
+<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+  add
+</button>
+<table class="table mt-1">
+  <thead>
+    <tr>
+      <th scope="col">no</th>
+      <th scope="col">Code</th>
+      <th scope="col">departure city</th>
+      <th scope="col">departure country</th>
+      <th scope="col">action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i< departure.length; i++){ %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= departure[i].code_departure_city %></td>
+                <td><%= departure[i].name_departure_city %></td>
+                <td><%= departure[i].name_country %></td>
+                <td>
+                   <form action="/admin/departure/<%=departure[i].id_departure_city %>?_method=DELETE" method="POST">
+                    <button type="submit" class=" btn btn-danger btn-circle btn-sm ml-4"><i class="fas fa-trash"></i></a>
+                </form>
+                </td>
+            </tr>
+<% } %> 
+  </tbody>
+</table>
