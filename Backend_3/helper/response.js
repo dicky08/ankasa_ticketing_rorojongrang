@@ -1,41 +1,24 @@
 const response = {
-    success: (res,data,message) => {
-        const result = {
-            message: message,
-            success: true,
-            code: 200,
-            data: data,
-        }
-        res.json(result)
-    },
-    failed: (res,data,message) => {
-        const result = {
-            message: message,
-            success: false,
-            code: 403,
-            data: data,
-        }
-        res.json(result)
-    },
-    sucessWithMeta: (res, data, meta, message)=>{
-        const result = {
-            message : message,
-            success : true,
-            code : 200,
-            meta : meta,
-            data : data,
-        }
-        res.json(result)
-    },
-    tokenResult: (res,data,message) => {
-        const result = {
-            message: message,
-            success: true,
-            code: 200,
-            data: data,
-        }
-        res.json(result)
+  success: (res, data, message) => {
+      const result = {
+        success: true,
+        code:200,
+        status:'OK',
+        message,
+        data
+      }
+      res.status(200).json(result)
+  },
+  failed: (res, data, message) => {
+    const failed = {
+      success: false,
+      code: 500,
+      status: 'Error',
+      message,
+      data
     }
+    res.status(500).json(failed)
+  }
 }
 
 module.exports = response
