@@ -23,15 +23,16 @@ const departureController = {
   },
   insertController:(req,res) => {
     const body = req.body
+    const code = body.code_departure_city.toUpperCase()
     const name = body.name_departure_city.toUpperCase()
     const data = {
-      code_departure_city: body.code_departure_city,
+      code_departure_city: code,
       name_departure_city: name,
       id_country:body.id_country
     }
     InsertModel(data)
     .then((result) => {
-      success(res, result, 'Success get Insert data Departure City')
+      success(res, result, 'Success Insert data Departure City')
     }).catch((err) => {
       failed(res, [], err.message)
     });
@@ -39,9 +40,10 @@ const departureController = {
   updateController:(req,res) => {
     const body = req.body
     const id = req.params.id
+    const code = body.code_departure_city.toUpperCase()
     const name = body.name_departure_city.toUpperCase()
     const data = {
-      code_departure_city: body.code_departure_city,
+      code_departure_city: code,
        name_departure_city: name,
        id_country:body.id_country
      }
@@ -56,7 +58,7 @@ const departureController = {
     const id = req.params.id
     deleteModel(id)
     .then((result) => {
-      success(res, result, 'Success update data Departure City')
+      success(res, result, 'Success delete data Departure City')
     }).catch((err) => {
       failed(res, [], err.message)
     });
