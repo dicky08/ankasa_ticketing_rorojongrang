@@ -19,6 +19,16 @@ const airlines = {
             response.failed(res,[],'Internal server error')
         }
     },
+    getDetail: (req,res) => {
+        try { 
+            const id = req.params.id_airlines
+            airlinesModel.getDetail(id).then((result)=>{
+                response.success(res,result,'Get detail Airlines success')
+            })
+        } catch {
+            response.failed(res,[],'Internal server error')
+        }
+    },
     addData: (req,res) => {
         try {
             const data = req.body

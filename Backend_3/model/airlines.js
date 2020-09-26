@@ -11,7 +11,14 @@ const airlines = {
                 }
             })
         })  
-},
+    },
+    getDetail: (id) => {
+        return new Promise((resolve,reject)=> {
+            db.query(`SELECT * from airlines WHERE id_airlines = '${id}'`,(err,result)=>{
+                err?reject(new Error(err)) : resolve(result)
+            })
+        })
+    },
     addData: (data) => {
         return new Promise((resolve,reject)=>{
             db.query(`INSERT into airlines SET ?`,data,(err,result)=>{
