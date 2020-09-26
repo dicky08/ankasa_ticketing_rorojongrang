@@ -1,10 +1,10 @@
 const db = require('../config/database')
 
-const facilities = {
+const transit = {
     getAll: (search, sort, type, limit, offset) => {
         return new Promise ((resolve, reject) => {
-            db.query(`SELECT *, (SELECT COUNT(*) FROM facilities) AS count, facilities.id_facilities as id_facilities
-            FROM facilities WHERE name_facilities LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit}`, 
+            db.query(`SELECT *, (SELECT COUNT(*) FROM transit) AS count, transit.id_transit as id_transit
+            FROM transit WHERE name_transit LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit}`, 
             (err, result) => {
                 if(err){
                     reject(new Error(err))
@@ -16,7 +16,7 @@ const facilities = {
     },
     getDetail: (id) => {
         return new Promise ((resolve, reject) => {
-            db.query(`SELECT * FROM facilities WHERE id_facilities= '${id}'`, (err, result) => {
+            db.query(`SELECT * FROM transit WHERE id_transit= '${id}'`, (err, result) => {
                 if(err){
                     reject(new Error(err))
                 } else {
@@ -27,7 +27,7 @@ const facilities = {
     },
     insert: (data) => {
         return new Promise ((resolve, reject) => {
-            db.query(`INSERT INTO facilities (name_facilities) VALUES ('${data.name_facilities}')`,
+            db.query(`INSERT INTO transit (name_transit) VALUES ('${data.name_transit}')`,
             (err, result) => {
                 if(err){
                     reject(new Error(err.message))
@@ -39,7 +39,7 @@ const facilities = {
     },
     update: (data, id) => {
         return new Promise ((resolve, reject) => {
-            db.query(`UPDATE facilities SET ? WHERE id_facilities = ?`, [data, id], 
+            db.query(`UPDATE transit SET ? WHERE id_transit = ?`, [data, id], 
             (err, result) => {
                 if(err){
                     reject(new Error(err.message))
@@ -51,7 +51,7 @@ const facilities = {
     },
     destroy: (id) => {
         return new Promise ((resolve, reject) => {
-            db.query(`DELETE FROM facilities WHERE id_facilities='${id}'`, (err, result) => {
+            db.query(`DELETE FROM transit WHERE id_transit='${id}'`, (err, result) => {
                 if(err){
                     reject(new Error(err.message))
                 }else {
@@ -62,4 +62,4 @@ const facilities = {
     }
 }
 
-module.exports = facilities
+module.exports = transit
