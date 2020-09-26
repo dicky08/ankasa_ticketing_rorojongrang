@@ -2,7 +2,7 @@ const express = require('express');
 const router = express.Router();
 
 // Call Controller
-const {registerController} = require('../controllers/API/register')
+const {registerController} = require('../controllers/API/registerController')
 router
 .post('/register', registerController)
 
