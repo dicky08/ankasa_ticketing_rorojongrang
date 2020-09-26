@@ -4,13 +4,15 @@ const response = require('../../helper/response')
 const airlines = {
     dataAll: (req,res) => {
         try {
+           /*  masih error
             const sortby = !req.query.sortby?'id_airlines':req.query.sortby
-            const type = !req.query.type?'ASC': req.query.type
-            const name = !req.query.name?'':req.query.name
+            const type = !req.query.type?"ASC": req.query.type
+            const name = !req.query.name?"":req.query.name
             const limit = !req.query.limit?7: parseInt(req.query.limit)
             const page = !req.query.page? 1 : parseInt(req.query.page)
             const offset = page ===1?0:(page-1)*limit
-            airlinesModel.dataAll(sortby,name,type,limit,offset).then((result)=>{
+            */
+            airlinesModel.dataAll().then((result)=>{
                 response.success(res,result,"Get all airlines success")
             })
         } catch {
