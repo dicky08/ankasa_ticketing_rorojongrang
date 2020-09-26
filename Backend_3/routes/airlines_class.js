@@ -1,6 +1,5 @@
 const express = require('express')
 const airlines_classControllers = require('../controllers/API/airlines_classControllers')
-const airlinesClass = require('../model/airlines_class')
 const router = express.Router()
 
 router
