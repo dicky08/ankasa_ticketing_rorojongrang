@@ -18,6 +18,16 @@ const response = {
       data
     }
     res.status(500).json(failed)
+  },
+  successWithMeta: (res, data, meta, message) => {
+      const result = {
+          message,
+          success: true,
+          code:111,
+          meta:meta,
+          data:data
+      }
+      res.json(result)
   }
 }
 

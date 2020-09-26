@@ -1,5 +1,5 @@
-const facilitiesModel = require('../models/facilities')
-const { success, failed, successWithMeta } = require('../helpers/response')
+const facilitiesModel = require('../../model/facilitiesModel')
+const { success, failed, successWithMeta } = require('../../helper/response')
 
 const facilitiesController = {
     getAll: (req, res) => {

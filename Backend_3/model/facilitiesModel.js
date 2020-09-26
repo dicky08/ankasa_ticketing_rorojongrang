@@ -3,7 +3,7 @@ const db = require('../config/database')
 const facilities = {
     getAll: (search, sort, type, limit, offset) => {
         return new Promise ((resolve, reject) => {
-            db.query(`SELECT * FROM facilities WHERE facilities LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset}, ${limit}`, 
+            db.query('SELECT * FROM facilities', 
             (err, result) => {
                 if(err){
                     reject(new Error(err))

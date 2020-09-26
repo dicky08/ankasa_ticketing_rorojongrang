@@ -5,11 +5,11 @@ const router = express.Router()
 const { getAll, getDetail, insert, update, destroy } = require('../controllers/API/facilitiesController')
 
 router
-.get('/api/getAll', getAll)
-.get('/api/getDetail/:id',getDetail)
-.put('/api/update/:id', update)
-.post('/api/insert', insert)
-.delete('/api/delete/:id', destroy)
+.get('/getAll', getAll)
+.get('/getDetail/:id',getDetail)
+.put('/update/:id', update)
+.post('/insert', insert)
+.delete('/delete/:id', destroy)
 
 
 module.exports = router

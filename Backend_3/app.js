@@ -6,10 +6,11 @@ var logger = require('morgan');
 
 // deklarasi router disini
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+// var usersRouter = require('./routes/users');
 const adminRouter = require('./routes/admin')
 const departureCity = require('./routes/departure_city')
 const destinationCity = require('./routes/destination_city')
+const facilities = require('./routes/facilities')
 const airlinesRouter = require('./routes/airlines')
 
 
@@ -28,10 +29,11 @@ app.use('/sb-admin-2', express.static(path.join(__dirname, 'node_modules/startbo
 
 // panggil routernya disini
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+// app.use('/users', usersRouter);
 app.use('/admin', adminRouter)
 app.use('/api/departure_city', departureCity)
 app.use('/api/destination_city', destinationCity)
+app.use('/api/facilities', facilities)
 app.use('/api/airlines',airlinesRouter)
 
 
