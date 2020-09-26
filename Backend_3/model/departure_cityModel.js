@@ -15,6 +15,20 @@ const departure_cityModel  = {
           })
         })
       },
+      getAllModeljoin: () => {
+        return new Promise((resolve,reject) => {
+          db.query(
+            `SELECT departure_city.id_departure_city, country.name_country , departure_city.code_departure_city, departure_city.name_departure_city   from country INNER JOIN departure_city WHERE departure_city.id_country = country.id_country`,
+            (err, result) => {
+              if (err) {
+                reject(new Error(err));
+              } else {
+                resolve(result);
+              }
+            }
+          );
+        })
+      },
       getDetailModel: (id) => {
         return new Promise((resolve,reject) => {
           db.query(`SELECT * FROM departure_city WHERE id_departure_city= ${id}`,
