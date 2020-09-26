@@ -11,6 +11,16 @@ const airlinesClass = {
             response.failed(res,[],'Internal server error')
         }
     },
+    getDetail: (req,res) =>{
+        try {
+            const id = req.params.id_class
+            airlinesClassModel.getDetail(id).then((result)=>{
+                response.success(res,result,'get detail success')
+            })
+        } catch (err){
+            response.failed(res,[],err.message)
+        }
+    },
     add: (req,res) => {
         try {
         const body = req.body
