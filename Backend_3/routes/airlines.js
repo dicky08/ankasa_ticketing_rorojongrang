@@ -2,6 +2,7 @@ const express = require('express')
 const airlinesControllers = require('../controllers/API/airlinesControllers')
 const router = express.Router()
 
+
 router
 .get('/getall',airlinesControllers.dataAll)
 .get('/detail/:id_airlines',airlinesControllers.getDetail)
