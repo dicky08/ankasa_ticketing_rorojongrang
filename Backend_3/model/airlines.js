@@ -19,9 +19,9 @@ const airlines = {
             })
         })
     },
-    addData: (data) => {
+    addData: (body) => {
         return new Promise((resolve,reject)=>{
-            db.query(`INSERT into airlines SET ?`,data,(err,result)=>{
+            db.query(`INSERT into airlines SET ?`,body,(err,result)=>{
                 err? reject(new Error(err)) :resolve(result)
             })
         })
