@@ -1,0 +1,31 @@
+
+<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">
+  add
+</button>
+<table class="table mt-1" id="dataTable">
+  <thead>
+    <tr>
+      <th scope="col">no</th>
+      <th scope="col">Code Arrived</th>
+      <th scope="col">city arrived</th>
+      <th scope="col">country</th>
+      <th scope="col">action</th>
+    </tr>
+  </thead>
+  <tbody>
+          <% for(let i = 0; i < destinationCity.length; i++){ %>
+            <tr>
+                <td><%=destinationCity[i].id %></td>
+                <td><%= destinationCity[i].code_arrived %></td>
+                <td><%= destinationCity[i].city_arrived %></td>
+                <td><%= destinationCity[i].name_country %></td>
+                <td>
+                  <form action="/admin/destinationCity/<%=destinationCity[i].id %>?_method=DELETE" method="POST">
+                    <a href="javascript:void()" data-id="<%= destinationCity[i].id %>" data-code="<%= destinationCity[i].code_arrived %>" data-city="<%= destinationCity[i].city_arrived %>" data-country="<%= destinationCity[i].name_country %>"  class="btn btn-warning btn-sm btn-circle button-update" ><i class="fas fa-edit"></i></a>
+                    <button type="submit" class=" btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                </form>
+                </td>
+            </tr>
+<% } %> 
+  </tbody>
+</table>

@@ -55,9 +55,23 @@
         </div>
     </div>
 </div>
+<%- include('../partial/script') %>
 <%- include('addModal') %>
+<%- include('editModal') %>
 
-  <%- include('../partial/script') %>
+<script>
+    $('#dataTable').on('click', '.button-update', function() {
+        let id = $(this).data('id')
+        let name = $(this).data('name')
+        let code = $(this).data('code')
+        let country = $(this).data('country')
+       $('#edit-modal').modal('show');
+       $('.id').val(id)
+       $('.name').val(name)
+       $('.code').val(code)
+       $('.country').val(country)
+    })
+</script>
   
 </body>
 

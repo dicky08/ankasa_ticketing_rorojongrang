@@ -45,7 +45,8 @@ const usersController = {
           const decodeEmail = decode.email
           const result = await updateVerify(decodeEmail)
           if (result) {
-            success(res, result.email, 'Congratulations your email has been actived')
+            // success(res, result.email, 'Congratulations your email has been actived')
+            res.render("verify/email",);
           }else{
             res.json({
               message: 'Error actived'
@@ -61,6 +62,42 @@ const usersController = {
   updateUsersController: (req, res) => {
     const body = req.body
    
+  },
+  loginController: async (req, res) => {
+    try {
+      const {email,password } = req.body
+      const findEmail = await getEmail(email)
+      const emails = findEmail[0].email
+      const reff = findEmail[0].refresh_token
+      console.log(reff)
+      const status = findEmail[0].status
+      const haspassword = findEmail[0].password
+      const level  = findEmail[0].level
+      const isMatch = bcrypt.compareSync(password, haspassword)
+      const refreshToken = jwt.sign({email: email}, JWT_REFRESH)
+      if(status === 0 ){
+        res.send({status: "not activated"})
+      }
+      if(isMatch) {
+        jwt.sign(
+          { email: email, level: level }, JWT_PRIVATE, 
+          {expiresIn: 3600},
+          function(err, token) {
+            if(err){
+              res.send(err)
+            } else {
+              res.json({
+                message: "berhasil login",
+                tokenLogin: token,
+                refreshToken: refreshToken
+              })
+            }
+          }
+          );
+      }
+    } catch (error) {
+      
+    }
   }
 }
 

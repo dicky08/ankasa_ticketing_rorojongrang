@@ -1,0 +1,27 @@
+
+<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">
+  add
+</button>
+<table class="table mt-1" id="dataTable">
+  <thead>
+    <tr>
+      <th scope="col">no</th>
+      <th scope="col">Name Facility</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+   <tbody>
+          <% for(let i = 0; i < facilities.length; i++){ %>
+            <tr>
+                <td><%=i + 1 %></td>
+                <td><%= facilities[i].name_facilities %></td>
+                <td>
+                  <form action="/admin/facility/<%=facilities[i].id_facilities %>?_method=DELETE" method="POST">
+                    <a href="javascript:void()" data-id="<%= facilities[i].id_facilities %>" data-name="<%= facilities[i].name_facilities %>"  class="btn btn-warning btn-sm btn-circle button-update" ><i class="fas fa-edit"></i></a>
+                    <button type="submit" class=" btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                </form>
+                </td>
+            </tr>
+<% } %> 
+  </tbody>
+</table>

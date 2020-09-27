@@ -1,8 +1,8 @@
 
-<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">
   add
 </button>
-<table class="table mt-1">
+<table class="table mt-1" id="dataTable">
   <thead>
     <tr>
       <th scope="col">no</th>
@@ -20,8 +20,9 @@
                 <td><%= departure[i].name_departure_city %></td>
                 <td><%= departure[i].name_country %></td>
                 <td>
-                   <form action="/admin/departure/<%=departure[i].id_departure_city %>?_method=DELETE" method="POST">
-                    <button type="submit" class=" btn btn-danger btn-circle btn-sm ml-4"><i class="fas fa-trash"></i></a>
+                  <form action="/admin/departure/<%=departure[i].id_departure_city %>?_method=DELETE" method="POST">
+                    <a href="javascript:void()" data-id="<%= departure[i].id_departure_city %>" data-code="<%= departure[i].code_departure_city %>" data-name="<%= departure[i].name_departure_city %>" data-country="<%= departure[i].name_country %>" class="btn btn-warning btn-sm btn-circle button-update" ><i class="fas fa-edit"></i></a>
+                    <button type="submit" class=" btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
                 </form>
                 </td>
             </tr>

@@ -1,4 +1,4 @@
-const db = require('../config/database')
+     const db = require('../config/database')
 
 const usersModel = {
   register:(data) => {
@@ -45,4 +45,4 @@ const usersModel = {
   }
   }
 
-module.exports = usersModel
+module.exports = usersModel 

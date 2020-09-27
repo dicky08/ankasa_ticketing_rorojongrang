@@ -1,0 +1,29 @@
+
+<button type="button" class="btn btn-primary"  data-toggle="modal" data-target="#exampleModal">
+  add
+</button>
+<table class="table mt-1" id="dataTable">
+  <thead>
+    <tr>
+      <th scope="col">no</th>
+      <th scope="col">Code</th>
+      <th scope="col">Country</th>
+      <th scope="col">Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(let i = 0; i< country.length; i++){ %>
+            <tr>
+                <td><%= i + 1 %></td>
+                <td><%= country[i].code_country %></td>
+                <td><%= country[i].name_country %></td>
+                <td>
+                  <form action="/admin/country/<%= country[i].id_country %>?_method=DELETE" method="POST">
+                    <a href="javascript:void()"  data-id="<%= country[i].id_class %>" data-name="<%= country[i].name_class %>" class="btn btn-warning btn-sm btn-circle button-update" ><i class="fas fa-edit"></i></a>
+                    <button type="submit" class=" btn btn-danger btn-circle btn-sm"><i class="fas fa-trash"></i></a>
+                </form>
+                </td>
+            </tr>
+<% } %> 
+  </tbody>
+</table>
