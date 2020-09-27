@@ -14,6 +14,7 @@ const airlinesClass = {
                 err ? reject(new Error(err)) : resolve(result)
             })
         })
+    
     },
     add: (data) => {
         return new Promise((resolve,reject)=>{

@@ -10,7 +10,14 @@ const country = {
     },
     add: (data) => {
         return new Promise((resolve,reject)=>{
-            db.query(`INSERT into country (id_country,code_country,name_country)VALUES('${data.id_country}','${data.code_country}','${data.name_country}')`,(err,result)=>{
+            db.query(`INSERT into country 
+            (id_country,
+            code_country,
+            name_country)VALUES
+            ('${data.id_country}',
+            '${data.code_country}',
+            '${data.name_country}')`
+            ,(err,result)=>{
                 err? reject(new Error(err)) :resolve(result)
             })
         })
@@ -24,8 +31,11 @@ const country = {
     },
     update: (data,id) => {
         return new Promise((resolve,reject)=>{
-            db.query(`UPDATE country set code_country = '${data.code_country}',
-            name_country = '${data.name_country}' where id_country = '${id}'`,(err,result)=>{
+            db.query(`UPDATE country set 
+            code_country = '${data.code_country}',
+            name_country = '${data.name_country}' 
+            where id_country = '${id}'`
+            ,(err,result)=>{
                 err?reject(new Error(err)):resolve(result)
             })
         })

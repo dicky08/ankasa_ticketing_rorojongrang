@@ -3,15 +3,7 @@ const db = require('.././config/database')
 const airlines = { 
     dataAll: () => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT airlines.id_airlines,airlines.code_airlines ,
-             airlines.name_airlines,
-            airlines.price,
-            airlines.image_airlines,
-            airlines.child,
-            airlines.adult,
-            airlines.type,
-            airlines.departure_day
-            from airlines`
+            db.query(`SELECT * from airliness`
             ,(err,result)=>{
                 if(err){
                     reject(new Error(err))
@@ -23,14 +15,14 @@ const airlines = {
     },
     getDetail: (id) => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT * from airlines WHERE id_airlines = '${id}'`,(err,result)=>{
+            db.query(`SELECT * from airliness WHERE id_airlines = '${id}'`,(err,result)=>{
                 err?reject(new Error(err)) : resolve(result)
             })
         })
     },
     addData: (data) => {
         return new Promise((resolve,reject)=>{
-          /*  db.query(`INSERT into airlines 
+            db.query(`INSERT into airliness 
             (id_airlines,
             code_airlines,
             name_airlines,
@@ -44,7 +36,10 @@ const airlines = {
             id_transit,
             id_facilities,
             id_departure_time,
-            id_time_arrived)values
+            id_time_arrived,
+            id_departure_city,
+            id_destinations_city,
+            id_class_airlines)values
             ('${data.id_airlines}',
             '${data.code_airlines}',
             '${data.name_airlines}',
@@ -58,23 +53,25 @@ const airlines = {
             '${data.id_transit}',
             '${data.id_facilities}',
             '${data.id_departure_time}',
-            '${data.id_time_arrived}')`
-            */
-            db.query(`insert into airlines set ?`,data,(err,result)=>{
+            '${data.id_time_arrived}',
+            '${data.id_departure_city}',
+            '${data.id_destinations_city}',
+            '${data.id_class_airlines}')`
+            ,data,(err,result)=>{
                 err? reject(new Error(err)) :resolve(result)
             })
         })
     },
     updData: (data,id) => {
         return new Promise((resolve,reject)=>{
-            db.query(`UPDATE airlines SET? WHERE id_airlines = ?`,[data,id],(err,result)=>{
+            db.query(`UPDATE airliness SET? WHERE id_airlines = ?`,[data,id],(err,result)=>{
                 err?reject(new Error(err)):resolve(result)
             })
         })
     },
     delete: (id) => {
         return new Promise((resolve,reject)=> {
-            db.query(`DELETE from airlines WHERE id_airlines = ?`, id,(err,result)=> {
+            db.query(`DELETE from airliness WHERE id_airlines = ${id}`,(err,result)=> {
                 err?reject(new Error(err)):resolve(result)
             })
         })
