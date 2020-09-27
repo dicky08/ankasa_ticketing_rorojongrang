@@ -1,6 +1,15 @@
+const { resolve } = require('path')
 const db = require('../config/database')
 
 const usersModel = {
+  getAll:() => {
+    return new Promise((resolve,reject) => {
+     db.query(`SELECT * FROM users`,
+     (err, result) => {
+       err?reject(new Error(err)): resolve(result)
+     })
+    })
+   },
   register:(data) => {
     return new Promise((resolve,reject) => {
       db.query(`INSERT INTO users (name,email,password,level,status,image) 
@@ -18,6 +27,14 @@ const usersModel = {
     })
    })
   },
+  getId:(id) => {
+    return new Promise((resolve,reject) => {
+     db.query(`SELECT * FROM users WHERE id='${id}'`,
+     (err, result) => {
+       err?reject(new Error(err)): resolve(result)
+     })
+    })
+   },
   updateUsers:(data, id) => {
     console.log(data);
     return new Promise((resolve,reject) => {
@@ -41,6 +58,13 @@ const usersModel = {
     return new Promise((resolve,reject) => {
       db.query(`UPDATE users SET status=1 WHERE email='${email}'`,
       (err,result) =>{
+        err?reject(new Error(err)) : resolve(result)
+      })
+    })
+  },
+  deleteUsers: (id) => {
+    return new Promise((resolve,reject) => {
+      db.query(`DELETE FROM users WHERE id=${id}`, (err,result) => {
         err?reject(new Error(err)) : resolve(result)
       })
     })

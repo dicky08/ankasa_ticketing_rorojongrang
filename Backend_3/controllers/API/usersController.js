@@ -1,5 +1,5 @@
 // Call Model
-const { register, getEmail,updateVerify,updateUsers } = require('../../model/usersModel')
+const { getAll,register, getEmail,getId,updateVerify,updateUsers,deleteUsers } = require('../../model/usersModel')
 // Call Helper
 const { success, failed,errorImage } = require('../../helper/response')
 const { emailSend } = require('../../helper/sendEmail')
@@ -13,6 +13,15 @@ const path = require('path')
 
 
 const usersController = {
+
+  getAllUsers: (req,res) => {
+    getAll() 
+    .then((result) => {
+      success(res, result, 'Success get all data Users')
+    }).catch((err) => {
+      failed(res,[], err.message)
+    });
+  },
   registerController: async (req, res) => {
     const body = req.body
     const salt = await bcrypt.genSalt(10)
@@ -92,17 +101,31 @@ updateed:  (req,res) => {
           })
           success(res, result, 'Update image success')
         }
-        }else{
-          // Without Image
-          body.image = dataUser[0].image
-        }
+      }else{
+        // Without Image
+        body.image = dataUser[0].image
+      }
       } catch (error) {
         failed(res, [], error.message)
       }
-  }
-})
-  },
- 
+    }
+  })
+},
+deleteControllerUsers: async (req,res) => {
+  const id = req.params.id
+  try {
+    const dataUser = await getId(id)
+    let oldPath = path.join(__dirname + `/../../public/img/${dataUser[0].image}`);
+    fs.unlink(oldPath, function (err) {
+      if (err) throw err;
+      console.log('Deleted');
+    })
+    const result = await deleteUsers(id)
+    success(res, result, 'Delete User success')
+  } catch (error) {
+    failed(res, [], error.message)
+    }
+  } 
 }
 
 module.exports = usersController
