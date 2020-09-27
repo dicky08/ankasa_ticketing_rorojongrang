@@ -28,6 +28,16 @@ const response = {
           data:data
       }
       res.json(result)
+  },
+  errorImage: (res,data,message) => {
+    const error = {
+      success:false,
+      code: 400,
+      status: 'Bad Request',
+      message,
+      data
+    }
+    res.status(400).json(error)
   }
 }
 

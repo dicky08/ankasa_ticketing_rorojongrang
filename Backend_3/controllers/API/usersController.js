@@ -69,7 +69,7 @@ const usersController = {
       const findEmail = await getEmail(email)
       const emails = findEmail[0].email
       const reff = findEmail[0].refresh_token
-      console.log(reff)
+      console.log(re)
       const status = findEmail[0].status
       const haspassword = findEmail[0].password
       const level  = findEmail[0].level

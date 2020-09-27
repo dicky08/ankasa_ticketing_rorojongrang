@@ -14,6 +14,7 @@ const departureCity = require('./routes/departure_city')
 const depatureTime = require('./routes/departure_time')
 const timeArrived = require('./routes/time_arrived')
 const destinationCity = require('./routes/destination_city')
+const destinations = require('./routes/destination')
 const facilities = require('./routes/facilities')
 const transit = require('./routes/transit')
 const airlinesRouter = require('./routes/airlines')
@@ -21,7 +22,10 @@ const methodOveride = require('method-override')
 const airlinesClass = require('./routes/airlines_class');
 const countryRouter = require('./routes/country')
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 20ee72c4baa370f257eb369745cc99465a2a48f5
 var app = express();
 
 // view engine setup
@@ -54,10 +58,14 @@ app.use('/api/departure_city', departureCity)
 app.use('/api/departure_time', depatureTime)
 app.use('/api/time_arrived', timeArrived)
 app.use('/api/destination_city', destinationCity)
+app.use('/api/destinations', destinations)
 app.use('/api/facilities', facilities)
 app.use('/api/transit', transit)
 app.use('/api/airlines',airlinesRouter)
+<<<<<<< HEAD
 
+=======
+>>>>>>> 20ee72c4baa370f257eb369745cc99465a2a48f5
 app.use('/api/airlines_class',airlinesClass)
 app.use('/api/country',countryRouter)
 
