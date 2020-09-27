@@ -19,12 +19,14 @@ const usersModel = {
    })
   },
   updateUsers:(data, id) => {
+    console.log(data);
     return new Promise((resolve,reject) => {
       db.query(`UPDATE users SET 
-      nama='${data.nama}',
+      name='${data.name}',
       email='${data.email}',
-      address='${data.password}',
-      phone_number='${data.image}'
+      address='${data.address}',
+      phone_number='${data.phone_number}',
+      image='${data.image}'
       WHERE id = '${id}'`,
       (err,result) => {
         if (err) {
