@@ -1,9 +1,10 @@
 const db = require('.././config/database')
 
 const airlinesClass = { 
-    getAll: () => {
+    getAll: (search, sort, type, limit, offset) => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT * from airlines_class `,(err,result)=>{
+            db.query(`SELECT *,(SELECT COUNT(*) from airlines_class) AS count, airlines_class.id_class AS id_class
+            from airlines_class WHERE name_class LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
                 err?reject(new Error(err)) : resolve(result)
             })
         })  
@@ -14,6 +15,7 @@ const airlinesClass = {
                 err ? reject(new Error(err)) : resolve(result)
             })
         })
+    
     },
     add: (data) => {
         return new Promise((resolve,reject)=>{

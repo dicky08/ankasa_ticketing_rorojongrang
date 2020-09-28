@@ -30,25 +30,63 @@ const airlines = {
             response.failed(res,[],'Internal server error')
         }
     },
-    addData: (req,res) => {
+    addData: async(req,res) => {
         try {
-            // multer
-            // upload.single('image')(req,res,(err)=>{
-            //     if(err){
-            //         if(err.code === 'LIMIT_FILE_SIZE'){
-            //             response.failed(res,[],'image too large')
-            //         }else{
-            //             response.failed(res,[],err)
-            //         }
-            //     } else {
-                    const body = req.body
-                    // body.image = !req.file?req.file:req.file.filename
-                    airlinesModel.addData(body)
-                    .then((result)=>{
-                        response.success(res,result,"Add data airlines Success")
-                    })
-                // }
-                // })
+            // const {
+            //     id_airlines,
+            //     code_airlines,
+            //     name_airlines,
+            //     price,
+            //     image_airlines,
+            //     child,
+            //     adult,
+            //     type,
+            //     departure_day,
+            //     rating,
+            //     id_transit,
+            //     id_facilities,
+            //     id_departure_time,
+            //     id_time_arrived
+            // } = req.body ;
+
+            // console.log(id_airlines,
+            //     code_airlines,
+            //     name_airlines,
+            //     price,
+            //     image_airlines,
+            //     child,
+            //     adult,
+            //     type,
+            //     departure_day,
+            //     rating,
+            //     id_transit,
+            //     id_facilities,
+            //     id_departure_time,
+            //     id_time_arrived)
+            const data =  await req.body 
+            await airlinesModel.addData(data)
+            .then((result)=>{
+                    response.success(res,result,"Add data airlines Success")
+                })
+            //     id_airlines,
+            //     code_airlines,
+            //     name_airlines,
+            //     price,
+            //     image_airlines,
+            //     child,
+            //     adult,
+            //     type,
+            //     departure_day,
+            //     rating,
+            //     id_transit,
+            //     id_facilities,
+            //     id_departure_time,
+            //     id_time_arrived
+            // );
+            // res.json(add)
+                    // .then((result)=>{
+                    //     response.success(res,result,"Add data airlines Success")
+                    // })
             } catch (err){
             response.failed(res,[],err.message)
         }
