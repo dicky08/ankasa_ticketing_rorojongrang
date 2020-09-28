@@ -11,7 +11,7 @@ const country = {
         const limit = !req.query.limit? 9 : parseInt(req.query.limit)
         const page = !req.query.page? 1 : parseInt(req.query.page)
         const offset = page===1? 0 : (page-1)*limit
-        console.log(search, sort, type, limit, offset)
+        
         countryModel.getAll(search, sort, type, limit, offset)
         .then((result)=>{
             const totalRow = result[0].count
@@ -27,7 +27,7 @@ const country = {
                 response.failed(res,[],err.message)
             })
         } catch (err) {
-            response.failed(res,[],err.message)
+            response.failed(res,[],'Internal server error')
         }
     },
     add: (req,res) => {
