@@ -4,7 +4,7 @@ const response = require('../../helper/response')
 
 const country = {
     getAll: (req,res) => {
-        // try {
+        try {
         const search = !req.query.search?'' : req.query.search
         const sort = !req.query.sort?'id_country' : req.query.sort
         const type = !req.query.type?'ASC' : req.query.type
@@ -26,9 +26,9 @@ const country = {
             .catch((err)=>{
                 response.failed(res,[],err.message)
             })
-        // } catch (err) {
-        //     response.failed(res,[],err.message)
-        // }
+        } catch (err) {
+            response.failed(res,[],err.message)
+        }
     },
     add: (req,res) => {
         try {
