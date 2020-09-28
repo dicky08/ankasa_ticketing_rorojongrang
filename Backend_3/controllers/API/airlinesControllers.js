@@ -8,14 +8,15 @@ const airlines = {
     dataAll: async(req,res) => {
         try {
         const search = !req.query.search?'' : req.query.search
+        const from = !req.query.from?'':req.query.from
         const sort = !req.query.sort?'id_airlines' : req.query.sort
         const type = !req.query.type?'ASC' : req.query.type
         const limit = !req.query.limit? 9 : parseInt(req.query.limit)
         const page = !req.query.page? 1 : parseInt(req.query.page)
         const offset = page===1? 0 : (page-1)*limit
-        const data = await airlinesModel.displayAll(sort,type,search)
+        const data = await airlinesModel.displayAll(sort,type)
 
-        airlinesModel.dataAll(search, sort, type, limit, offset)
+        airlinesModel.dataAll(search, sort, type, limit, offset,from)
         .then((result)=>{
            const totalRow = data.length
             const meta = {

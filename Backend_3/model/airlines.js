@@ -4,7 +4,8 @@ const airlines = {
     dataAll: (search, sort, type, limit, offset) => {
         return new Promise((resolve,reject)=> {
             db.query(`
-            SELECT airliness.id_airlines,
+            SELECT 
+            airliness.id_airlines,
             airliness.code_airlines,
             airliness.name_airlines,
             airliness.price,
@@ -28,7 +29,9 @@ const airlines = {
             JOIN time_arrived USING (id_time_arrived)
             JOIN departure_city USING (id_departure_city)
             
-            WHERE name_airlines LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
+            WHERE name_airlines LIKE '%${search}%' 
+            
+            ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
                 if(err){
                     reject(new Error(err))
                 }else{
@@ -37,7 +40,7 @@ const airlines = {
             })
         })  
     },
-    displayAll: (sort,type,search) => {
+    displayAll: (sort,type) => {
         return new Promise((resolve,reject)=>{
             db.query(`
             SELECT 
@@ -59,7 +62,7 @@ const airlines = {
             airliness.id_destinations_city,
             airliness.id_class_airlines
             from airliness
-            WHERE name_airlines LIKE '%${search}%' ORDER BY ${sort} ${type}`,(err,result)=>{
+            ORDER BY ${sort} ${type}`,(err,result)=>{
                 err?reject(new Error(err)):resolve(result)
             })
         })
