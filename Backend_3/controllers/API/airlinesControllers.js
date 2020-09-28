@@ -46,7 +46,7 @@ const airlines = {
     },
     addData: (req,res) => { 
         try{
-        upload.single('image')(req,res,(err) => {
+        upload.single('image_airlines')(req,res,(err) => {
             if(err){
                 if(err.code === 'LIMIT_FILE_SIZE'){
                     response.failed(res,[],'File too large')
