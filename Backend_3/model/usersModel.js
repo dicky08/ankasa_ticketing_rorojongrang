@@ -19,6 +19,7 @@ const usersModel = {
       })
     }) 
   },
+  // Check Emall
   getEmail:(email) => {
    return new Promise((resolve,reject) => {
     db.query(`SELECT * FROM users WHERE email='${email}'`,
