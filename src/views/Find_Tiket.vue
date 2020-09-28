@@ -1,5 +1,6 @@
 <template>
   <div>
+    <!-- Navbar -->
     <Navbar/>
       <div class="row">
         <div class="box d-flex">
