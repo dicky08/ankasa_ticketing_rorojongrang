@@ -1,7 +1,7 @@
 const db = require('.././config/database')
 
 const airlines = { 
-    dataAll: (search, sort, type, limit, offset) => {
+    dataAll: (from,search, sort, type, limit, offset) => {
         return new Promise((resolve,reject)=> {
             db.query(`
             SELECT 
@@ -30,7 +30,7 @@ const airlines = {
             JOIN departure_city USING (id_departure_city)
             
             WHERE name_airlines LIKE '%${search}%' 
-            
+            AND departure_city.name_departure_city LIKE '%${from}%'
             ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
                 if(err){
                     reject(new Error(err))

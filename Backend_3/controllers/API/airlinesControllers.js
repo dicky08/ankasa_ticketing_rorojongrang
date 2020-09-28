@@ -16,7 +16,7 @@ const airlines = {
         const offset = page===1? 0 : (page-1)*limit
         const data = await airlinesModel.displayAll(search,sort,type)
 
-        airlinesModel.dataAll(search, sort, type, limit, offset,from)
+        airlinesModel.dataAll(from,search, sort, type, limit, offset)
         .then((result)=>{
            const totalRow = data.length
             const meta = {
