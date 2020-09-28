@@ -2,8 +2,8 @@ const express = require('express');
 const router = express.Router();
 
 // Call Controller
-const {registerController,verify,updateUsersController, loginController} = require('../controllers/API/usersController')
-const {registerController,verify,updateed,getAllUsers,deleteControllerUsers} = require('../controllers/API/usersController')
+
+const {registerController,verify,updateed,getAllUsers,deleteControllerUsers, updateUsersController, loginController} = require('../controllers/API/usersController')
 router
 .get('/getAll', getAllUsers)
 .get('/verify/:token', verify)

@@ -22,10 +22,6 @@ const methodOveride = require('method-override')
 const airlinesClass = require('./routes/airlines_class');
 const countryRouter = require('./routes/country')
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 20ee72c4baa370f257eb369745cc99465a2a48f5
 var app = express();
 
 // view engine setup
@@ -62,10 +58,6 @@ app.use('/api/destinations', destinations)
 app.use('/api/facilities', facilities)
 app.use('/api/transit', transit)
 app.use('/api/airlines',airlinesRouter)
-<<<<<<< HEAD
-
-=======
->>>>>>> 20ee72c4baa370f257eb369745cc99465a2a48f5
 app.use('/api/airlines_class',airlinesClass)
 app.use('/api/country',countryRouter)
 

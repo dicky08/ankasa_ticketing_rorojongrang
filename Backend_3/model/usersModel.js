@@ -1,10 +1,5 @@
-<<<<<<< HEAD
-     const db = require('../config/database')
-=======
-const { resolve } = require('path')
-const db = require('../config/database')
->>>>>>> 20ee72c4baa370f257eb369745cc99465a2a48f5
 
+ const db = require('../config/database')
 const usersModel = {
   getAll:() => {
     return new Promise((resolve,reject) => {
