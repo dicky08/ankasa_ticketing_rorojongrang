@@ -1,14 +1,14 @@
 
  const db = require('../config/database')
 const usersModel = {
-  getAll:() => {
-    return new Promise((resolve,reject) => {
-     db.query(`SELECT * FROM users`,
-     (err, result) => {
-       err?reject(new Error(err)): resolve(result)
-     })
-    })
-   },
+  // getAll:() => {
+  //   return new Promise((resolve,reject) => {
+  //    db.query(`SELECT * FROM users`,
+  //    (err, result) => {
+  //      err?reject(new Error(err)): resolve(result)
+  //    })
+  //   })
+  //  },
   register:(data) => {
     return new Promise((resolve,reject) => {
       db.query(`INSERT INTO users (name,email,password,level,status,image) 
