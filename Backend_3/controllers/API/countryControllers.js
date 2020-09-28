@@ -4,13 +4,31 @@ const response = require('../../helper/response')
 
 const country = {
     getAll: (req,res) => {
-        try {
-            countryModel.getAll().then((result)=>{
-                response.success(res,result,'Get All COuntry success')
+        // try {
+        const search = !req.query.search?'' : req.query.search
+        const sort = !req.query.sort?'id_country' : req.query.sort
+        const type = !req.query.type?'ASC' : req.query.type
+        const limit = !req.query.limit? 9 : parseInt(req.query.limit)
+        const page = !req.query.page? 1 : parseInt(req.query.page)
+        const offset = page===1? 0 : (page-1)*limit
+        console.log(search, sort, type, limit, offset)
+        countryModel.getAll(search, sort, type, limit, offset)
+        .then((result)=>{
+            const totalRow = result[0].count
+            const meta = {
+                totalRow: totalRow,
+                totalPage: Math.ceil(totalRow/limit),
+                limit,
+                page
+            }
+            response.successWithMeta(res,result,meta,'Get All Country success')
             })
-        } catch (err) {
-            response.failed(res,[],'internal server error')
-        }
+            .catch((err)=>{
+                response.failed(res,[],err.message)
+            })
+        // } catch (err) {
+        //     response.failed(res,[],err.message)
+        // }
     },
     add: (req,res) => {
         try {
