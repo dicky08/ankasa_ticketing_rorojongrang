@@ -1,10 +1,10 @@
 // Impor Database
 const db = require('../config/database')
 // Defiisikan
-const departure_cityModel  = {
+const transactionModel  = {
       getAllModel: () => {
         return new Promise((resolve,reject) => {
-          db.query(`SELECT departure_city.id_departure_city,departure_city.code_departure_city,departure_city.name_departure_city,country.code_country,country.name_country FROM departure_city  JOIN country USING(id_country)`,
+          db.query(`SELECT * FROM transaction`,
           (err,result) => {
             if (err) {
               reject(new Error(err))
@@ -16,7 +16,7 @@ const departure_cityModel  = {
       },
       getDetailModel: (id) => {
         return new Promise((resolve,reject) => {
-          db.query(`SELECT * FROM departure_city WHERE id_departure_city= ${id}`,
+          db.query(`SELECT * FROM transaction WHERE id_transaction= ${id}`,
           (err,result) => {
             if (err) {
               reject( new Error(err))
@@ -28,7 +28,7 @@ const departure_cityModel  = {
       },
       InsertModel: (data) => {
         return new Promise((resolve,reject) => {
-          db.query(`INSERT INTO departure_city (code_departure_city,name_departure_city,id_country) VALUES('${data.code_departure_city}','${data.name_departure_city}','${data.id_country}') `,
+          db.query(`INSERT INTO transaction (id_user,id_airlines,proof_of_payment,status_payment) VALUES('${data.id_user}','${data.id_airlines}','payment.jpg','1') `,
           (err,result) => {
             if (err) {
               reject( new Error(err))
@@ -40,11 +40,12 @@ const departure_cityModel  = {
       },
       updateModel:(data, id) => {
         return new Promise((resolve,reject) => {
-          db.query(`UPDATE departure_city SET 
-          code_departure_city = '${data.code_departure_city}',
-          name_departure_city = '${data.name_departure_city}',
-          id_country = '${data.id_country}'
-           WHERE id_departure_city = ${id} `,
+          db.query(`UPDATE transaction SET 
+          id_user = '${data.id_user}',
+          id_airlines = '${data.id_airlines}',
+          proof_of_payment = '${data.proof_of_payment}',
+          status_payment = '${data.status_payment}'
+           WHERE id_transaction = ${id} `,
           (err,result) => {
             if (err) {
               reject(new Error(err))
@@ -56,7 +57,7 @@ const departure_cityModel  = {
       },
       deleteModel: (id) => {
         return new Promise((resolve,reject) => {
-          db.query(`DELETE FROM departure_city WHERE id_departure_city=${id}`,
+          db.query(`DELETE FROM transaction WHERE id_transaction=${id}`,
           (err,result) => {
             if (err) {
               reject(new Error(err))
@@ -68,4 +69,4 @@ const departure_cityModel  = {
       }
 }
 
-module.exports = departure_cityModel
+module.exports = transactionModel

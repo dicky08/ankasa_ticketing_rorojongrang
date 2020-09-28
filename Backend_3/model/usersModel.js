@@ -18,6 +18,7 @@ const usersModel = {
       })
     }) 
   },
+  // Check Emall
   getEmail:(email) => {
    return new Promise((resolve,reject) => {
     db.query(`SELECT * FROM users WHERE email='${email}'`,
@@ -40,8 +41,11 @@ const usersModel = {
       db.query(`UPDATE users SET 
       name='${data.name}',
       email='${data.email}',
+      city='${data.city}',
       address='${data.address}',
       phone_number='${data.phone_number}',
+      post_code='${data.post_code}',
+      cards='${data.cards}',
       image='${data.image}'
       WHERE id = '${id}'`,
       (err,result) => {
