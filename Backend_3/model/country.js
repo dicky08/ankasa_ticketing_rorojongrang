@@ -1,9 +1,10 @@
 const db = require(".././config/database");
 
 const country = {
-  getAll: () => {
+  getAll: (search, sort, type, limit, offset) => {
     return new Promise((resolve, reject) => {
-      db.query(`SELECT * from country`, (err, result) => {
+      db.query(`SELECT *,(SELECT COUNT(*) from country) AS count, country.id_country AS id_country
+      from country WHERE name_country LIKE '%${search}%' ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`, (err, result) => {
         err ? reject(new Error(err)) : resolve(result);
       });
     });

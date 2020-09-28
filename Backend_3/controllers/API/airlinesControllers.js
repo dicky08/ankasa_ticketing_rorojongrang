@@ -1,21 +1,35 @@
 const airlinesModel = require('../../model/airlines')
 const response = require('../../helper/response')
 const upload = require('../../helper/upload')
+const { getCount } = require('../../model/airlines')
+
 
 const airlines = {
-    dataAll: (req,res) => {
+    dataAll: async(req,res) => {
         try {
-           /*  masih error
-            const sortby = !req.query.sortby?'id_airlines':req.query.sortby
-            const type = !req.query.type?"ASC": req.query.type
-            const name = !req.query.name?"":req.query.name
-            const limit = !req.query.limit?7: parseInt(req.query.limit)
-            const page = !req.query.page? 1 : parseInt(req.query.page)
-            const offset = page ===1?0:(page-1)*limit
-            */
-            airlinesModel.dataAll().then((result)=>{
-                response.success(res,result,"Get all airlines success")
-            })
+        const search = !req.query.search?'' : req.query.search
+        const from = !req.query.from?'':req.query.from
+        const sort = !req.query.sort?'id_airlines' : req.query.sort
+        const type = !req.query.type?'ASC' : req.query.type
+        const limit = !req.query.limit? 9 : parseInt(req.query.limit)
+        const page = !req.query.page? 1 : parseInt(req.query.page)
+        const offset = page===1? 0 : (page-1)*limit
+        const data = await airlinesModel.displayAll(search,sort,type)
+
+        airlinesModel.dataAll(from,search, sort, type, limit, offset)
+        .then((result)=>{
+           const totalRow = data.length
+            const meta = {
+                totalRow: totalRow,
+                totalPage: Math.ceil(totalRow/limit),
+                limit,
+                page
+            }
+            response.successWithMeta(res,result,meta,"Get All airlines success")
+        })
+        .catch((err)=>{
+            response.failed(res,[],err.message)
+        })
         } catch {
             response.failed(res,[],'Internal server error')
         }
@@ -30,67 +44,28 @@ const airlines = {
             response.failed(res,[],'Internal server error')
         }
     },
-    addData: async(req,res) => {
-        try {
-            // const {
-            //     id_airlines,
-            //     code_airlines,
-            //     name_airlines,
-            //     price,
-            //     image_airlines,
-            //     child,
-            //     adult,
-            //     type,
-            //     departure_day,
-            //     rating,
-            //     id_transit,
-            //     id_facilities,
-            //     id_departure_time,
-            //     id_time_arrived
-            // } = req.body ;
-
-            // console.log(id_airlines,
-            //     code_airlines,
-            //     name_airlines,
-            //     price,
-            //     image_airlines,
-            //     child,
-            //     adult,
-            //     type,
-            //     departure_day,
-            //     rating,
-            //     id_transit,
-            //     id_facilities,
-            //     id_departure_time,
-            //     id_time_arrived)
-            const data =  await req.body 
-            await airlinesModel.addData(data)
-            .then((result)=>{
-                    response.success(res,result,"Add data airlines Success")
+    addData: (req,res) => { 
+        try{
+        upload.single('image_airlines')(req,res,(err) => {
+            if(err){
+                if(err.code === 'LIMIT_FILE_SIZE'){
+                    response.failed(res,[],'File too large')
+                }else{
+                    response.failed(res,[],err)
+                }
+            }   else {
+                    const body = req.body
+                    body.image_airlines = !req.file?req.file:req.file.filename
+                    airlinesModel.addData(body)
+                        .then((result)=>{
+                            response.success(res,result,"Add Airlines success")
+                        })
+                    }
                 })
-            //     id_airlines,
-            //     code_airlines,
-            //     name_airlines,
-            //     price,
-            //     image_airlines,
-            //     child,
-            //     adult,
-            //     type,
-            //     departure_day,
-            //     rating,
-            //     id_transit,
-            //     id_facilities,
-            //     id_departure_time,
-            //     id_time_arrived
-            // );
-            // res.json(add)
-                    // .then((result)=>{
-                    //     response.success(res,result,"Add data airlines Success")
-                    // })
             } catch (err){
-            response.failed(res,[],err.message)
-        }
-    },
+    response.failed(res,[],err.message)
+    }
+},
     updData: (req,res) => {
         try {
             const data = req.body

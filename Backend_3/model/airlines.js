@@ -1,10 +1,37 @@
 const db = require('.././config/database')
 
 const airlines = { 
-    dataAll: () => {
+    dataAll: (from,search, sort, type, limit, offset) => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT * from airliness`
-            ,(err,result)=>{
+            db.query(`
+            SELECT 
+            airliness.id_airlines,
+            airliness.code_airlines,
+            airliness.name_airlines,
+            airliness.price,
+            airliness.image_airlines,
+            airliness.child,
+            airliness.adult,
+            airliness.type,
+            airliness.departure_day,
+            airliness.rating,
+            transit.name_transit,
+            facilities.name_facilities,
+            departure_time.time,
+            time_arrived.time_arr,
+            departure_city.name_departure_city,
+            airliness.id_destinations_city,
+            airliness.id_class_airlines
+            from airliness 
+            JOIN transit USING (id_transit)
+            JOIN facilities using(id_facilities)
+            JOIN departure_time using(id_departure_time)
+            JOIN time_arrived USING (id_time_arrived)
+            JOIN departure_city USING (id_departure_city)
+            
+            WHERE name_airlines LIKE '%${search}%' 
+            AND departure_city.name_departure_city LIKE '%${from}%'
+            ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
                 if(err){
                     reject(new Error(err))
                 }else{
@@ -12,6 +39,34 @@ const airlines = {
                 }
             })
         })  
+    },
+    displayAll: (search,sort,type) => {
+        return new Promise((resolve,reject)=>{
+            db.query(`
+            SELECT 
+            airliness.id_airlines,
+            airliness.code_airlines,
+            airliness.name_airlines,
+            airliness.price,
+            airliness.image_airlines,
+            airliness.child,
+            airliness.adult,
+            airliness.type,
+            airliness.departure_day,
+            airliness.rating,
+            airliness.id_transit,
+            airliness.id_facilities,
+            airliness.id_departure_time,
+            airliness.id_time_arrived,
+            airliness.id_departure_city,
+            airliness.id_destinations_city,
+            airliness.id_class_airlines
+            from airliness
+            WHERE name_airlines LIKE '%${search}%'
+            ORDER BY ${sort} ${type}`,(err,result)=>{
+                err?reject(new Error(err)):resolve(result)
+            })
+        })
     },
     getDetail: (id) => {
         return new Promise((resolve,reject)=> {
@@ -30,7 +85,6 @@ const airlines = {
             child,
             adult,
             type,
-            departure_day,
             rating,
             id_transit,
             id_facilities,
@@ -46,7 +100,6 @@ const airlines = {
             '${data.child}',
             '${data.adult}',
             '${data.type}',
-            '${data.departure_day}',
             '${data.rating}',
             '${data.id_transit}',
             '${data.id_facilities}',
