@@ -14,7 +14,7 @@ const airlines = {
         const limit = !req.query.limit? 9 : parseInt(req.query.limit)
         const page = !req.query.page? 1 : parseInt(req.query.page)
         const offset = page===1? 0 : (page-1)*limit
-        const data = await airlinesModel.displayAll(sort,type)
+        const data = await airlinesModel.displayAll(search,sort,type)
 
         airlinesModel.dataAll(search, sort, type, limit, offset,from)
         .then((result)=>{

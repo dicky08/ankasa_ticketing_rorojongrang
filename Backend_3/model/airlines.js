@@ -40,7 +40,7 @@ const airlines = {
             })
         })  
     },
-    displayAll: (sort,type) => {
+    displayAll: (search,sort,type) => {
         return new Promise((resolve,reject)=>{
             db.query(`
             SELECT 
@@ -62,6 +62,7 @@ const airlines = {
             airliness.id_destinations_city,
             airliness.id_class_airlines
             from airliness
+            WHERE name_airlines LIKE '%${search}%'
             ORDER BY ${sort} ${type}`,(err,result)=>{
                 err?reject(new Error(err)):resolve(result)
             })
