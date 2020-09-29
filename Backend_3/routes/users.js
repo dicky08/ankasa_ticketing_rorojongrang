@@ -7,7 +7,6 @@ router
 .get('/getAll', getAllUsers)
 .get('/getDetail/:id', getDetailController)
 .get('/verify/:token', verify)
-.put('/update/:id', updateUsersController)
 .post('/login', loginController)
 .post('/register', registerController)
 .put('/update/:id', updateed)
