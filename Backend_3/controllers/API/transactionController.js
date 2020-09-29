@@ -80,6 +80,7 @@ const transactionController = {
     }
   })
   },
+  // Delete
   deleteController:(req,res) => {
     const id = req.params.id
     deleteModel(id)
