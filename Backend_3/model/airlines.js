@@ -1,36 +1,27 @@
+const fs = require('fs')
 const db = require('.././config/database')
 
 const airlines = { 
-    dataAll: (from,search, sort, type, limit, offset) => {
+    dataAll: (from,to,child,adult,trip,search, sort, type, limit, offset) => {
         return new Promise((resolve,reject)=> {
             db.query(`
-            SELECT 
-            airliness.id_airlines,
-            airliness.code_airlines,
-            airliness.name_airlines,
-            airliness.price,
-            airliness.image_airlines,
-            airliness.child,
-            airliness.adult,
-            airliness.type,
-            airliness.departure_day,
-            airliness.rating,
-            transit.name_transit,
-            facilities.name_facilities,
-            departure_time.time,
-            time_arrived.time_arr,
-            departure_city.name_departure_city,
-            airliness.id_destinations_city,
-            airliness.id_class_airlines
-            from airliness 
-            JOIN transit USING (id_transit)
-            JOIN facilities using(id_facilities)
-            JOIN departure_time using(id_departure_time)
-            JOIN time_arrived USING (id_time_arrived)
-            JOIN departure_city USING (id_departure_city)
+            SELECT * from airliness 
             
+           
+            INNER JOIN transit USING (id_transit)
+            INNER JOIN facilities using(id_facilities)
+            INNER JOIN departure_time using(id_departure_time)
+            INNER JOIN time_arrived USING (id_time_arrived)
+            INNER JOIN departure_city USING (id_departure_city)
+            INNER JOIN destination_city USING(id)
+            INNER JOIN airlines_class USING (id_class)
+
             WHERE name_airlines LIKE '%${search}%' 
             AND departure_city.name_departure_city LIKE '%${from}%'
+            AND destination_city.city_arrived LIKE '%${to}%'
+            AND airliness.child LIKE '%${child}%'
+            AND airliness.adult LIKE '%${adult}%'
+            AND airliness.type LIKE '%${trip}%'
             ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
                 if(err){
                     reject(new Error(err))
@@ -43,25 +34,7 @@ const airlines = {
     displayAll: (search,sort,type) => {
         return new Promise((resolve,reject)=>{
             db.query(`
-            SELECT 
-            airliness.id_airlines,
-            airliness.code_airlines,
-            airliness.name_airlines,
-            airliness.price,
-            airliness.image_airlines,
-            airliness.child,
-            airliness.adult,
-            airliness.type,
-            airliness.departure_day,
-            airliness.rating,
-            airliness.id_transit,
-            airliness.id_facilities,
-            airliness.id_departure_time,
-            airliness.id_time_arrived,
-            airliness.id_departure_city,
-            airliness.id_destinations_city,
-            airliness.id_class_airlines
-            from airliness
+            SELECT * from airliness
             WHERE name_airlines LIKE '%${search}%'
             ORDER BY ${sort} ${type}`,(err,result)=>{
                 err?reject(new Error(err)):resolve(result)
@@ -91,8 +64,8 @@ const airlines = {
             id_departure_time,
             id_time_arrived,
             id_departure_city,
-            id_destinations_city,
-            id_class_airlines)values
+            id,
+            id_class)values
             ('${data.code_airlines}',
             '${data.name_airlines}',
             '${data.price}',
@@ -106,16 +79,57 @@ const airlines = {
             '${data.id_departure_time}',
             '${data.id_time_arrived}',
             '${data.id_departure_city}',
-            '${data.id_destinations_city}',
-            '${data.id_class_airlines}')`
+            '${data.id}',
+            '${data.id_class}')`
             ,data,(err,result)=>{
                 err? reject(new Error(err)) :resolve(result)
             })
         })
     },
-    updData: (data,id) => {
+    updData: (data,id_air) => {
+        
         return new Promise((resolve,reject)=>{
+            db.query(`SELECT * FROM airliness WHERE id_airlines = ${id_air}`, (err,result) => {
+                if(err) {
+                    reject(new Error(err))
+                }else{
+                    resolve(new Promise((resolve,reject) => {
+                        let imgOld = result[0].image_airlines
+                        let imgNew = data.image_airlines
+                        if(imgOld !== imgNew){
+                            fs.unlink(`public/img/${imgOld}`,(err)=> {
+                                if(err){
+                                    console.log('Data is empty')
+                                }
+                                console.log('Delete image success')
+                            })
+                        }
             db.query(`UPDATE airliness SET
+            code_airlines = '${data.code_airlines}', 
+            name_airlines = '${data.name_airlines}',
+            price = '${data.price}',
+            image_airlines = '${data.image_airlines}',
+            child = '${data.child}',
+            adult = '${data.adult}',
+            type = '${data.type}',
+            rating = '${data.rating}',
+            id_transit = '${data.id_transit}',
+            id_facilities = '${data.id_facilities}',
+            id_departure_time = '${data.id_departure_time}',
+            id_time_arrived = '${data.id_time_arrived}',
+            id_departure_city = '${data.id_departure_city}',
+            id = '${data.id}',
+            id_class = '${data.id_class}'
+            WHERE id_airlines = '${id_air}'
+            `,(err,result)=>{
+                err?reject(new Error(err)):resolve(result)
+            })
+                    }))
+                }
+            })
+         })
+            
+           /* db.query(`UPDATE airliness SET
             code_airlines = '${data.code_airlines}', 
             name_airlines = '${data.name_airlines}',
             price = '${data.price}',
@@ -136,14 +150,29 @@ const airlines = {
                 err?reject(new Error(err)):resolve(result)
             })
         })
-    },
-    delete: (id) => {
-        return new Promise((resolve,reject)=> {
-            db.query(`DELETE from airliness WHERE id_airlines = ${id}`,(err,result)=> {
-                err?reject(new Error(err)):resolve(result)
+    }, */
+},
+    delete: (id_air) => {
+        return new Promise((resolve,reject)=>{
+            db.query(`SELECT * FROM airliness where id_airlines = ${id_air}`,(err,result)=>{
+                if(err){
+                    reject(new Error(err))
+                }else{
+                    resolve(new Promise((resolve,reject)=> {
+                        const imgOld = result[0].image_airlines
+                        fs.unlink(`public/img/${imgOld}`,(err)=>{
+                            if(err) throw err;
+                            console.log(`Image deleted`) 
+                        })
+                        db.query(`delete from airliness where id_airlines = '${id_air}'
+                          `,(err,result)=>{
+                            err ? reject(new Error(err)) : resolve(result)
+                        })
+                    }))
+                }
             })
         })
-    }
+    }        
 }
 
 module.exports = airlines

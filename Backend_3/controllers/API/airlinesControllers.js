@@ -9,14 +9,18 @@ const airlines = {
         try {
         const search = !req.query.search?'' : req.query.search
         const from = !req.query.from?'':req.query.from
+        const to = !req.query.to?'' : req.query.to
+        const child = !req.query.child?'' : req.query.child
+        const adult = !req.query.adult?'' : req.query.adult
         const sort = !req.query.sort?'id_airlines' : req.query.sort
+        const trip = !req.query.trip?'' : req.query.trip
         const type = !req.query.type?'ASC' : req.query.type
         const limit = !req.query.limit? 9 : parseInt(req.query.limit)
         const page = !req.query.page? 1 : parseInt(req.query.page)
         const offset = page===1? 0 : (page-1)*limit
         const data = await airlinesModel.displayAll(search,sort,type)
 
-        airlinesModel.dataAll(from,search, sort, type, limit, offset)
+        airlinesModel.dataAll(from,to,child,adult,trip,search, sort, type, limit, offset)
         .then((result)=>{
            const totalRow = data.length
             const meta = {
@@ -69,8 +73,9 @@ const airlines = {
     updData: (req,res) => {
         try {
             const data = req.body
-            const id = req.params.id_airlines
-            airlinesModel.updData(data,id).then((result)=>{
+            const id_air = req.params.id_airlines
+            data.image_airlines = req.file.filename
+            airlinesModel.updData(data,id_air).then((result)=>{
                 response.success(res,result,"Update Airlines success")
             })
         } catch (err) {
@@ -79,8 +84,8 @@ const airlines = {
     },
     delete: (req,res) => {
         try {
-            const id = req.params.id_airlines
-            airlinesModel.delete(id).then((result)=>{
+            const id_air = req.params.id_airlines
+            airlinesModel.delete(id_air).then((result)=>{
                 response.success(res,result,"Delete airlines success")
             })
         } catch (err) {
