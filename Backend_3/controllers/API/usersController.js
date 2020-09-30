@@ -85,10 +85,6 @@ registerController: async (req, res) => {
       })
     }
   },
-  updateUsersController: (req, res) => {
-    const body = req.body
-   
-  },
   loginController: async (req, res) => {
     try {
       const {email,password } = req.body

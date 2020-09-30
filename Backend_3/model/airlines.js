@@ -61,6 +61,8 @@ const airlines = {
             AND departure_time.time LIKE '%${departure_time}%'
             AND time_arrived.time_arr LIKE '%${arrived_time}%'
             AND airlines_class.name_class LIKE '%${class_airlines}%'
+
+
             ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
                 if(err){
                     reject(new Error(err))
@@ -82,7 +84,39 @@ const airlines = {
     },
     getDetail: (id) => {
         return new Promise((resolve,reject)=> {
-            db.query(`SELECT * from airliness WHERE id_airlines = '${id}'`,(err,result)=>{
+            db.query(`SELECT 
+            airliness.id_airlines,
+            airliness.code_airlines,
+            airliness.name_airlines,
+            airliness.price,
+            airliness.image_airlines,
+            airliness.child,
+            airliness.adult,
+            airliness.type,
+            airliness.departure_day,
+            transit.name_transit,
+            airlines_class.name_class,
+            departure_time.time,
+            time_arrived.time_arr,
+            departure_city.name_departure_city,
+            destination_city.city_arrived,
+            dep.code_country as code_departure, 
+            des.code_country as code_destination,
+            
+            facilities.name_facilities
+            
+            from airliness
+            
+            INNER JOIN transit USING (id_transit)
+            INNER JOIN facilities using(id_facilities)
+            INNER JOIN departure_time using(id_departure_time)
+            INNER JOIN time_arrived USING (id_time_arrived)
+            INNER JOIN departure_city USING (id_departure_city)
+            INNER JOIN destination_city USING(id)
+            INNER JOIN airlines_class USING (id_class)
+            JOIN country des ON destination_city.id_country = des.id_country
+            JOIN country dep ON departure_city.id_country = dep.id_country
+            WHERE id_airlines = '${id}'`,(err,result)=>{
                 err?reject(new Error(err)) : resolve(result)
             })
         })

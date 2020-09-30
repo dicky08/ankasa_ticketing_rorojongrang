@@ -24,7 +24,6 @@ const airlines = {
         const page = !req.query.page? 1 : parseInt(req.query.page)
         const offset = page===1? 0 : (page-1)*limit
         const data = await airlinesModel.displayAll(search,sort,type)
-
         airlinesModel.dataAll(search,
                             from,
                             to,
