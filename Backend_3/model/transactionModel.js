@@ -4,7 +4,9 @@ const db = require('../config/database')
 const transactionModel  = {
       getAllModel: () => {
         return new Promise((resolve,reject) => {
-          db.query(`SELECT * FROM transaction`,
+          db.query(`SELECT * FROM transaction
+          INNER JOIN users ON transaction.id_user = users.id
+          INNER JOIN airliness ON transaction.id_airlines = airliness.id_airlines`,
           (err,result) => {
             if (err) {
               reject(new Error(err))
@@ -16,7 +18,10 @@ const transactionModel  = {
       },
       getDetailModel: (id) => {
         return new Promise((resolve,reject) => {
-          db.query(`SELECT * FROM transaction WHERE id_transaction= ${id}`,
+          db.query(`SELECT * FROM transaction 
+          INNER JOIN users ON transaction.id_user = users.id
+          INNER JOIN airliness ON transaction.id_airlines = airliness.id_airlines
+          WHERE id_transaction= ${id}`,
           (err,result) => {
             if (err) {
               reject( new Error(err))
@@ -28,7 +33,7 @@ const transactionModel  = {
       },
       InsertModel: (data) => {
         return new Promise((resolve,reject) => {
-          db.query(`INSERT INTO transaction (id_user,id_airlines,proof_of_payment,status_payment) VALUES('${data.id_user}','${data.id_airlines}','payment.jpg','1') `,
+          db.query(`INSERT INTO transaction (id_user,id_airlines,proof_of_payment,total_payment,status_payment) VALUES('${data.id_user}','${data.id_airlines}','payment.jpg','${data.total_payment}','1') `,
           (err,result) => {
             if (err) {
               reject( new Error(err))
@@ -44,6 +49,7 @@ const transactionModel  = {
           id_user = '${data.id_user}',
           id_airlines = '${data.id_airlines}',
           proof_of_payment = '${data.proof_of_payment}',
+          total_payment = '${data.total_payment}',
           status_payment = '${data.status_payment}'
            WHERE id_transaction = ${id} `,
           (err,result) => {

@@ -120,6 +120,10 @@ registerController: async (req, res) => {
             }
           }
           );
+      } else {
+        res.json({
+          message: "Password salah"
+        })
       }
     } catch (error) {
       res.send({
