@@ -15,12 +15,13 @@ const airlines = {
         const sort = !req.query.sort?'id_airlines' : req.query.sort
         const trip = !req.query.trip?'' : req.query.trip
         const type = !req.query.type?'ASC' : req.query.type
+        const transit = !req.query.transit?'' : req.query.transit
         const limit = !req.query.limit? 9 : parseInt(req.query.limit)
         const page = !req.query.page? 1 : parseInt(req.query.page)
         const offset = page===1? 0 : (page-1)*limit
         const data = await airlinesModel.displayAll(search,sort,type)
 
-        airlinesModel.dataAll(from,to,child,adult,trip,search, sort, type, limit, offset)
+        airlinesModel.dataAll(from,to,child,adult,trip,transit,search, sort, type, limit, offset)
         .then((result)=>{
            const totalRow = data.length
             const meta = {

@@ -2,7 +2,7 @@ const fs = require('fs')
 const db = require('.././config/database')
 
 const airlines = { 
-    dataAll: (from,to,child,adult,trip,search, sort, type, limit, offset) => {
+    dataAll: (from,to,child,adult,trip,transit,search, sort, type, limit, offset) => {
         return new Promise((resolve,reject)=> {
             db.query(`
             SELECT * from airliness 
@@ -22,6 +22,7 @@ const airlines = {
             AND airliness.child LIKE '%${child}%'
             AND airliness.adult LIKE '%${adult}%'
             AND airliness.type LIKE '%${trip}%'
+            AND transit.name_transit LIKE '%${transit}%'
             ORDER BY ${sort} ${type} LIMIT ${offset},${limit}`,(err,result)=>{
                 if(err){
                     reject(new Error(err))
