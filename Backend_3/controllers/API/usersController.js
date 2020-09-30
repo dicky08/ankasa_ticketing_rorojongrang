@@ -85,14 +85,11 @@ registerController: async (req, res) => {
       })
     }
   },
-  updateUsersController: (req, res) => {
-    const body = req.body
-   
-  },
   loginController: async (req, res) => {
     try {
       const {email,password } = req.body
       const findEmail = await getEmail(email)
+      const id = findEmail[0].id
       const emails = findEmail[0].email
       const reff = findEmail[0].refresh_token
       // console.log(re)
@@ -113,6 +110,7 @@ registerController: async (req, res) => {
               res.send(err)
             } else {
               res.json({
+                id:id,
                 message: "berhasil login",
                 tokenLogin: token,
                 refreshToken: refreshToken
