@@ -28,7 +28,7 @@ const transactionModel  = {
       },
       InsertModel: (data) => {
         return new Promise((resolve,reject) => {
-          db.query(`INSERT INTO transaction (id_user,id_airlines,proof_of_payment,status_payment) VALUES('${data.id_user}','${data.id_airlines}','payment.jpg','1') `,
+          db.query(`INSERT INTO transaction (id_user,id_airlines,proof_of_payment,total_payment,status_payment) VALUES('${data.id_user}','${data.id_airlines}','payment.jpg','${data.total_payment}','1') `,
           (err,result) => {
             if (err) {
               reject( new Error(err))

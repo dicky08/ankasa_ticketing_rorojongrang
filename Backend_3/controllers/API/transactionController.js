@@ -31,7 +31,10 @@ const transactionController = {
     .then((result) => {
       success(res, result, 'Success Insert data Transaction')
     }).catch((err) => {
-      failed(res, [], err.message)
+      res.json({
+        msg: err.message
+      })
+      // failed(res, [], err.message)
     });
   },
   updateController:(req,res) => {
