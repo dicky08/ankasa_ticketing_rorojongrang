@@ -1,7 +1,7 @@
 const nodeMailer = require('nodemailer')
 const jwt = require('jsonwebtoken')
 // Call Env
-const { JWT_REGIS, JWT_PRIVATE, EMAIL, PASSWORD, JWT_REFRESH } = require('./env')
+const { JWT_REGIS, JWT_PRIVATE, EMAIL, PASSWORD, JWT_REFRESH, URL_LOKAL } = require('./env')
 const sendingEmail = {
    // Send Email
    emailSend: (email) => {
@@ -22,7 +22,7 @@ const sendingEmail = {
       to: email,
       subject: `Hello ${email} ✔ `,
       html: `Please activation of email ! <br>
-      <a href="http://localhost:3000/api/users/verify/${hasJwt}"> Activation</a>
+      <a href="${URL_LOKAL}/api/users/verify/${hasJwt}"> Activation</a>
       `
     }
     transporter.sendMail(mailOptions, (err, response) => {
