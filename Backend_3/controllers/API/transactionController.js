@@ -22,7 +22,10 @@ const transactionController = {
     .then((result) => {
       success(res, result, 'Success get detail Transaction')
     }).catch((err) => {
-      failed(res, [], err.message)
+      res.json({
+        msg:err.message
+      })
+      // failed(res, [], err.message)
     });
   },
   insertController:(req,res) => {

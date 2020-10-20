@@ -9,6 +9,16 @@ const response = {
       }
       res.status(200).json(result)
   },
+  faileds: (res,code, data, message) => {
+    const result = {
+      success: false,
+      code,
+      status:'Failed',
+      message,
+      data
+    }
+    res.json(result)
+},
   failed: (res, data, message) => {
     const failed = {
       success: false,

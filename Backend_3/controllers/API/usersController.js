@@ -118,7 +118,7 @@ registerController: async (req, res) => {
             }
           }
           );
-      } else {
+        } else {
         res.json({
           message: "Password salah"
         })

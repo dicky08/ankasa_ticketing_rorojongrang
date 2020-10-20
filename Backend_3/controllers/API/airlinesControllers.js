@@ -10,15 +10,18 @@ const airlines = {
         const search = !req.query.search?'' :  req.query.search
         const from = !req.query.from?'':req.query.from
         const to = !req.query.to?'' : req.query.to
+        const trip = !req.query.trip?'' : req.query.trip
+        const day = !req.query.departure_day?'' : req.query.departure_day
         const child = !req.query.child?'' : req.query.child
         const adult = !req.query.adult?'' : req.query.adult
         const class_airlines = !req.query.class_airlines?'':req.query.class_airlines
         const transit = !req.query.transit?'':req.query.transit
         const facilities = !req.query.facilities?'':req.query.facilities
-        const departure_time = !req.query.departure_time?'':req.query.departure_time
-        const arrived_time = !req.query.arrived_time?'':req.query.arrived_time
+        const departureFrom = !req.query.departureFrom?'00:00:00':req.query.departureFrom
+        const departureTo = !req.query.departureTo?'24:00:00':req.query.departureTo
+        const arrivedFrom = !req.query.arrivedFrom?'00:00:00':req.query.arrivedFrom
+        const arrivedTo = !req.query.arrivedTo?'24:00:00':req.query.arrivedTo
         const sort = !req.query.sort?'id_airlines' : req.query.sort
-        const trip = !req.query.trip?'' : req.query.trip
         const type = !req.query.type?'ASC' : req.query.type
         const limit = !req.query.limit? 9 : parseInt(req.query.limit)
         const page = !req.query.page? 1 : parseInt(req.query.page)
@@ -27,16 +30,22 @@ const airlines = {
         airlinesModel.dataAll(search,
                             from,
                             to,
+                            trip,
+                            day,
                             child,
                             adult,
-                            trip,
                             transit,
                             facilities,
-                            departure_time,
-                            arrived_time,
+                            departureFrom,
+                            departureTo,
+                            arrivedFrom,
+                            arrivedTo,
+                            // departure_time,
+                            // arrived_time,
                             class_airlines,
                             sort, type, limit, offset)
         .then((result)=>{
+          console.log(result)
            const totalRow = data.length
             const meta = {
                 totalRow: totalRow,
@@ -57,6 +66,12 @@ const airlines = {
         try { 
             const id = req.params.id_airlines
             airlinesModel.getDetail(id).then((result)=>{
+              if (result.length < 1) {
+                res.json({
+                  msg:'Not Found',
+                  code: 404
+                })
+              }
                 response.success(res,result,'Get detail Airlines success')
             })
         } catch {

@@ -5,13 +5,16 @@ const airlines = {
     dataAll: (search,
         from,
         to,
+        trip,
+        day,
         child,
         adult,
-        trip,
         transit,
         facilities,
-        departure_time,
-        arrived_time,
+        departureFrom,
+        departureTo,
+        arrivedFrom,
+        arrivedTo,
         class_airlines,
         sort, type, limit, offset) => {
         return new Promise((resolve,reject)=> {
@@ -53,13 +56,14 @@ const airlines = {
             WHERE name_airlines LIKE '%${search}%' 
             AND departure_city.name_departure_city LIKE '%${from}%'
             AND destination_city.city_arrived LIKE '%${to}%'
+            AND airliness.type LIKE '%${trip}%'
+            AND airliness.departure_day LIKE '%${day}%'
             AND airliness.child LIKE '%${child}%'
             AND airliness.adult LIKE '%${adult}%'
-            AND airliness.type LIKE '%${trip}%'
             AND transit.name_transit LIKE '%${transit}%'
             AND facilities.name_facilities LIKE '%${facilities}%'
-            AND departure_time.time LIKE '%${departure_time}%'
-            AND time_arrived.time_arr LIKE '%${arrived_time}%'
+            AND departure_time.time BETWEEN '${departureFrom}' AND '${departureTo}'
+            AND time_arrived.time_arr BETWEEN '${arrivedFrom}' AND '${arrivedTo}'
             AND airlines_class.name_class LIKE '%${class_airlines}%'
 
 

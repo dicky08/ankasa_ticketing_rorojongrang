@@ -24,6 +24,7 @@ const methodOveride = require('method-override')
 const airlinesClass = require('./routes/airlines_class');
 const countryRouter = require('./routes/country')
 const transactionRouter = require('./routes/transaction')
+const bookingRouter = require('./routes/booking')
 
 var app = express();
 
@@ -64,6 +65,7 @@ app.use('/api/airlines',airlinesRouter)
 app.use('/api/airlines_class',airlinesClass)
 app.use('/api/country',countryRouter)
 app.use('/api/transaction',transactionRouter)
+app.use('/api/booking',bookingRouter)
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
