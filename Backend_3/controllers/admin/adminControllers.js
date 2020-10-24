@@ -135,7 +135,6 @@ module.exports = {
 
     viewFacilities: async (req,res, next) => {
         const facilities = await facilitiesModel.gettAllData()
-        console.log(facilities);
         res.render("admin/facilities/viewFacilities", {
           facilities,
         });
@@ -208,7 +207,7 @@ module.exports = {
                 country
             })
         } catch (error) {
-            // res.redirect('/admin')
+            res.redirect('/admin')
         }
     },
     addCountry: async(req,res) => {

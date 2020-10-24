@@ -205,29 +205,6 @@ const airlines = {
                 }
             })
          })
-            
-           /* db.query(`UPDATE airliness SET
-            code_airlines = '${data.code_airlines}', 
-            name_airlines = '${data.name_airlines}',
-            price = '${data.price}',
-            image_airlines = '${data.image_airlines}',
-            child = '${data.child}',
-            adult = '${data.adult}',
-            type = '${data.type}',
-            rating = '${data.rating}',
-            id_transit = '${data.id_transit}',
-            id_facilities = '${data.id_facilities}',
-            id_departure_time = '${data.id_departure_time}',
-            id_time_arrived = '${data.id_time_arrived}',
-            id_departure_city = '${data.id_departure_city}',
-            id_destinations_city = '${data.id_destinations_city}',
-            id_class_airlines = '${data.id_class_airlines}'
-            WHERE id_airlines = '${id}'
-            `,(err,result)=>{
-                err?reject(new Error(err)):resolve(result)
-            })
-        })
-    }, */
 },
     delete: (id_air) => {
         return new Promise((resolve,reject)=>{

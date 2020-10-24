@@ -36,7 +36,6 @@ const usersModel = {
     })
    },
   updateUsers:(data, id) => {
-    console.log(data);
     return new Promise((resolve,reject) => {
       db.query(`UPDATE users SET 
       name='${data.name}',

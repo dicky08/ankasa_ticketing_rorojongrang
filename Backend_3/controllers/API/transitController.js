@@ -12,8 +12,6 @@ const transitController = {
         transitModel.getAll(search, sort, type, limit, offset)
         .then((result) => {
 
-            // redisClient.set('category', JSON.stringify(result)) // <-- save data ke redis
-
             const totalRow = result[0].count
             const meta = {
                 totalRow: totalRow,

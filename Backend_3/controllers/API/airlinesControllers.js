@@ -1,8 +1,6 @@
 const airlinesModel = require('../../model/airlines')
 const response = require('../../helper/response')
 const upload = require('../../helper/upload')
-const { getCount } = require('../../model/airlines')
-
 
 const airlines = {
     dataAll: async(req,res) => {
@@ -40,12 +38,9 @@ const airlines = {
                             departureTo,
                             arrivedFrom,
                             arrivedTo,
-                            // departure_time,
-                            // arrived_time,
                             class_airlines,
                             sort, type, limit, offset)
         .then((result)=>{
-          console.log(result)
            const totalRow = data.length
             const meta = {
                 totalRow: totalRow,

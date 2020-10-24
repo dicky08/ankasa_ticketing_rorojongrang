@@ -89,11 +89,11 @@ registerController: async (req, res) => {
     try {
       const {email,password } = req.body
       const findEmail = await getEmail(email)
-      const id = findEmail[0].id
-      const emails = findEmail[0].email
-      const reff = findEmail[0].refresh_token
-      // console.log(re)
+      if (findEmail.length === 0) {
+        return res.send({status: "Email has not been registered"})
+      }
       const status = findEmail[0].status
+      const id = findEmail[0].id
       const haspassword = findEmail[0].password
       const level  = findEmail[0].level
       const isMatch = bcrypt.compareSync(password, haspassword)
@@ -102,6 +102,7 @@ registerController: async (req, res) => {
         res.send({status: "not activated"})
       }
       if(isMatch) {
+        console.log(email);
         jwt.sign(
           { email: email, level: level }, JWT_PRIVATE, 
           {expiresIn: 3600},
@@ -109,6 +110,7 @@ registerController: async (req, res) => {
             if(err){
               res.send(err)
             } else {
+              console.log('oke');
               res.json({
                 id:id,
                 message: "berhasil login",
@@ -145,7 +147,6 @@ updateed:  (req,res) => {
       try {
         const dataUser = await getEmail(body.email)
         const newImage = body.image 
-        console.log(dataUser[0].image);
         if (newImage) {
           // With Image
           if (dataUser[0].image==='default.jpg') {

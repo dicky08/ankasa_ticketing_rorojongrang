@@ -1,9 +1,7 @@
 // Call Model
-// const {getAllModel,InsertModel,getDetailModel,updateModel,deleteModel} = require('../../model/transactionModel')
-// Call Helper
 const {insertModel,getAllModel,getDetailModel,payment} =require('../../model/bookingModel')
+// Call Helper
 const {success,faileds,failed,errorImage} = require('../../helper/response')
-// Definisikan Endpoint
 const uploads = require('../../helper/upload')
 const fs = require('fs')
 const path = require('path')
@@ -14,7 +12,6 @@ module.exports = {
     try {
       const body = req.body
       const insertBooking = await insertModel(body)
-      console.log(insertBooking);
       success(res,insertBooking,'Insert Booking Success')
     } catch (error) {
       failed(res,[],error.message)
@@ -23,7 +20,6 @@ module.exports = {
   getAllController: async (req,res) => {
     try {
       const id = req.params.id
-      console.log(id);
       const AllBooking = await getAllModel(id)
       success(res,AllBooking,'Get All Booking Success')
     } catch (error) {
